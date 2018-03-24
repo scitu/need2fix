@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %} งานซ่อม {% endblock %}
+{% block content %}
+
+<div id='content'>
+  <form>
+    <input type='radio' value='0' v-model='filterStatus'> ทั้งหมด 
+    <input type='radio' value='1' v-model='filterStatus'> รับเรื่อง
+    <input type='radio' value='2' v-model='filterStatus'> ดำเนินการ
+    <input type='radio' value='3' v-model='filterStatus'> เสร็จสิ้น
+  </form>
+  <form>
+    <input type='checkbox' value='true' v-model='onlyMe'> งานของฉัน
+  </form>
+
+  <table class='uk-table uk-table-striped uk-table-hover  uk-table-small'>
+    <caption>งานแจ้งซ่อม</caption>
+    <thead>
+      <tr>
+        <th> หัวเรื่อง </th>
+        <th> ฝ่าย </th>
+        <th> คำอธิบาย </th>
+        <th> ตึก </th>
+        <th> ชั้น </th>
+        <th> ห้อง </th>
+        <th> สถานะ </th>
+      </tr>
+    </thead>
+    <tbody v-for='task in taskList'>
+      <tr v-if='(onlyMe==false & (filterStatus==0 | task.status==filterStatus)) |
+                ({{user.id}}!="None" & onlyMe==true & 
+                  (filterStatus==0 | task.status==filterStatus) & 
+                  (task.requester=={{user.id}} | task.operator=={{user.id}})
+                )'>
+        <td> <a v-bind:href="'/task/detail/'+task.id+'/'">[[task.title]]</a></td>
+        <td>[[divisionName(task.division)]]</td>
+        <td>[[task.description]]</td>
+        <td>[[task.building]]</td>
+        <td>[[task.floor]]</td>
+        <td>[[task.room]]</td>
+        <td>[[task.status==1? 'รับเรื่อง':task.status==2?'ดำเนินการ':'เสร็จสิ้น']]</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type='text/javascript'>
+var content = new Vue({
+  el: '#content',
+  delimiters: ['[[', ']]'],
+  data: function () {
+    return {
+      'message': 'Hello',
+      'taskList': null,
+      'filterStatus': 1,
+      'onlyMe': false,
+      'divisionList': []
+    }
+  },
+
+  methods: {
+    divisionName: function (division) {
+      return division? this.divisionList[division]: 'ไม่ระบุ'
+    }
+  },
+
+  mounted: function () {
+    axios.get('/api/task/')
+      .then((response) => {
+        this.taskList = response.data
+      })
+      .catch((error) => {
+        alert(error)
+      })
+    axios.get('/api/division-list/')
+      .then((response) => {
+        this.divisionList = response.data
+      })
+      .catch((error) => {
+        alert(error)
+      })   
+  }
+})
+</script>
+{% endblock %}

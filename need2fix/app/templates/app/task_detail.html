@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block title %} งานซ่อม {% endblock %}
+{% block content %}
+
+<div id='content'>
+  <!-- Editable  -->
+  <form class="uk-form-horizontal">
+    <fieldset class="uk-fieldset">
+      <legend class="uk-legend"> คำร้องที่ {{pk}} </legend>
+      <label>สถานะ</label>
+      <select select class="uk-select" v-model="formData.status">
+        <option value="1">รับเรื่อง</option>
+        <option value="2">ดำเนินการ</option>
+        <option value="3">เสร็จสิ้น</option>
+      </select>
+      <label>ผู้รับผิดชอบ</label>
+      <select select class="uk-select" v-model="formData.operator">
+        <option v-for="mec in mechanicList" v-bind:value="mec.id"> [[mec.username]] [[mec.first_name]] </option>
+      </select>
+    </fieldset>
+  </form>
+  <button class="uk-button uk-button-default" v-on:click="updateRequest()">ส่งคำร้อง</button>
+
+  <!-- ReadOnly -->
+  <div class="uk-margin">
+    <label>หัวเรื่อง</label>
+    <input class="uk-input" type="text" placeholder="หัวเรื่อง" v-model="formData.title" disabled>
+  </div>
+  <div class="uk-margin">
+    <label> ถึง: [[divisionName]] </label>
+  </div>
+  <div class="uk-margin">
+    <label>คำอธิบาย</label>
+    <textarea class="uk-textarea" rows="5" placeholder="คำธิบาย" v-model="formData.description" disabled></textarea>
+  </div>
+  <div class="uk-margin">
+    <label> อาคาร: [[formData.building]] </label>
+  </div>
+  <div class="uk-margin">
+    <label> ชั้น: [[formData.floor]] </label>
+  </div>
+  <div class="uk-margin">
+    <label> ห้อง: [[formData.room]] </label>
+  </div>
+  <image class="imagePreviewer" v-bind:src="formData.image" v-if="formData.image!=null"> </image>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type='text/javascript'>
+var content = new Vue({
+  el: '#content',
+  delimiters: ['[[', ']]'],
+  data: function () {
+    return {
+      'formData': {},
+      'divisionList': {},
+      'mechanicList': []
+    }
+  },
+  
+  computed: {
+    divisionName: function () {
+      return this.formData.division? this.divisionList[this.formData.division]: 'ไม่ระบุ'
+    }
+  },
+
+  mounted: function () {
+    axios.get('/api/division-list/')
+      .then((response) => {
+        this.divisionList = response.data
+      })
+      .catch((error) => {
+        alert(error)
+      })    
+    axios.get('/api/mechanic-list/')
+      .then((response) => {
+        this.mechanicList = response.data
+      })
+      .catch((error) => {
+        alert(error)
+      })
+    axios.get('/api/task/'+'{{pk}}/')
+      .then((response) => {
+        this.formData = response.data
+      })
+      .catch((error) => {
+        alert(error)
+      })
+  }, 
+
+  methods: {
+    updateRequest: function () {
+      if (confirm("ยืนยันการแก้ไข")) {
+        axios.put('/api/task/'+'{{pk}}/', this.formData)
+          .then((response) => {
+            console.log(response.data)
+          })
+          .catch((error) => {
+            s = 'เกิดข้อผิดพลาด'
+            for(let k in error.response.data) {
+              s += '\n' + k + ': ' + error.response.data[k]
+            }
+            alert(s)
+          })
+      }
+    }
+  }
+
+})
+</script>
+{% endblock %}
