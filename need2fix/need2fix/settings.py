@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'social_django',
     'tuauth',
-
     'app.apps.AppConfig',
 ]
 

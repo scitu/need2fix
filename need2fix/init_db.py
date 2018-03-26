@@ -58,8 +58,8 @@ mechanic = User.objects.create_user(
 mechanic_group.user_set.add( mechanic )
 print()
 
-kwargs = {'title': 'แอร์ไม่เย็น', 
-    'description': 'ร้อนมาก ๆ', 
+kwargs = {'title': 'ghghgh', 
+    'description': 'fgfgfhfhghg', 
     'building': 'LC 5', 
     'floor': '1', 
     'room': '100',
