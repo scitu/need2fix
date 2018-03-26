@@ -17,18 +17,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-
 from app.routers import router
-from app.views import home, task_list
+from app.views import  task_list
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('', home, name='home'),
+    path('', task_list, name='home'),
     path('api-auth/', include('rest_framework.urls')),
     path('task/', include(('app.urls', 'app'), namespace='app')),
     path('oauth/', include('social_django.urls', namespace='social')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)\
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
- 

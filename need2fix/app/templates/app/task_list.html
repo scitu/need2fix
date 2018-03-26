@@ -4,14 +4,16 @@
 
 <div id='content'>
   <form>
-    <input type='radio' value='0' v-model='filterStatus'> ทั้งหมด 
+    <input type='radio' value='0' v-model='filterStatus'> ทั้งหมด
     <input type='radio' value='1' v-model='filterStatus'> รับเรื่อง
     <input type='radio' value='2' v-model='filterStatus'> ดำเนินการ
     <input type='radio' value='3' v-model='filterStatus'> เสร็จสิ้น
   </form>
+  {% if user.is_authenticated %}
   <form>
-    <input type='checkbox' value='true' v-model='onlyMe'> งานของฉัน
+    <input type='checkbox' value='true' v-model='onlyMe'>งานของฉัน
   </form>
+  {% endif %}
 
   <table class='uk-table uk-table-striped uk-table-hover  uk-table-small'>
     <caption>งานแจ้งซ่อม</caption>
@@ -28,8 +30,8 @@
     </thead>
     <tbody v-for='task in taskList'>
       <tr v-if='(onlyMe==false & (filterStatus==0 | task.status==filterStatus)) |
-                ({{user.id}}!="None" & onlyMe==true & 
-                  (filterStatus==0 | task.status==filterStatus) & 
+                ({{user.id}}!="None" & onlyMe==true &
+                  (filterStatus==0 | task.status==filterStatus) &
                   (task.requester=={{user.id}} | task.operator=={{user.id}})
                 )'>
         <td> <a v-bind:href="'/task/detail/'+task.id+'/'">[[task.title]]</a></td>
@@ -80,7 +82,7 @@ var content = new Vue({
       })
       .catch((error) => {
         alert(error)
-      })   
+      })
   }
 })
 </script>

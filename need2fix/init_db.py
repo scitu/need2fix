@@ -58,11 +58,11 @@ mechanic = User.objects.create_user(
 mechanic_group.user_set.add( mechanic )
 print()
 
-kwargs = {'title': 'แอร์ไม่เย็น', 
-    'description': 'ร้อนมาก ๆ', 
-    'building': 'LC 5', 
+kwargs = {'title': 'igkj',
+    'description': 'iuii',
+    'building': 'LC 5',
     'floor': '1', 
     'room': '100',
     'requester': user,
-} 
+}
 Task.objects.create( **kwargs)

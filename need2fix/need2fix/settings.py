@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'social_django',
     'tuauth',
-
     'app.apps.AppConfig',
 ]
 
@@ -112,7 +111,7 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_TU_KEY = 'XurMGL8cZlW2tKhqMPEOkhnIIlOM3whXNgfrWJDH'
 SOCIAL_AUTH_TU_SECRET = 'WiFcLO2nGen6IW0cDMQxUQ5SHumsb6PiP2reCDuc09nvmVpZ5qrLT2M7NJlqVsSUTTQx2zZHNPSRYSQnkNIoyhO5YdzSQ6e9gKUYNySeKfOKFiJUZ0KSzScPiIIFHfop'
 
-SOCIAL_AUTH_PIPELINE = [ 
+SOCIAL_AUTH_PIPELINE = [
     'social_core.pipeline.social_auth.social_details',
     'social_core.pipeline.social_auth.social_uid',
     'social_core.pipeline.social_auth.social_user',
@@ -142,6 +141,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOGIN_URL = '/oauth/login/tu/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 from app.models import Task
 
-@login_required
+#@login_required
 def task_list(request):
     return render(request, 'app/task_list.html')
 
@@ -18,5 +18,5 @@ def task_detail(request, pk):
     return render(request, 'app/task_detail.html', context)
 
 
-def home(request):
-    return render(request, 'app/home.html')
+# def home(request):
+#     return render(request, 'app/home.html')
