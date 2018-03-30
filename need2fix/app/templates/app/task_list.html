@@ -9,10 +9,11 @@
     <input type='radio' value='2' v-model='filterStatus'style="margin-left:3%"> ดำเนินการ
     <input type='radio' value='3' v-model='filterStatus'style="margin-left:3%"> เสร็จสิ้น
   </form>
+  {% if user.is_authenticated %}
   <form>
     <input type='checkbox' value='true' v-model='onlyMe' style="margin-left:5%"> งานของฉัน
   </form>
-
+  {% endif %}
   <table class='uk-table uk-table-striped uk-table-hover  uk-table-small'>
     <caption style="margin-left:1%">งานแจ้งซ่อม</caption>
     <thead>

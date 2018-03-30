@@ -25,7 +25,7 @@ from app.views import home, task_list
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('', home, name='home'),
+    path('', task_list, name='home'),
     path('api-auth/', include('rest_framework.urls')),
     path('task/', include(('app.urls', 'app'), namespace='app')),
     path('oauth/', include('social_django.urls', namespace='social')),
