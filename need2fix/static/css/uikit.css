@@ -8201,6 +8201,7 @@ iframe.uk-cover {
  */
 .uk-margin {
   margin-bottom: 20px;
+  margin-left: 50px;
 }
 * + .uk-margin {
   margin-top: 20px !important;

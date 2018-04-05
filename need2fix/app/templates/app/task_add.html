@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %} แจ้งซ่อม {% endblock %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/uikit.min.css' %}" />
+<div style="background-color: #f0f0f0; border-radius: 20px; margin: 10px;">
+<div style="margin-left: 100px;margin-right: 100px;margin-top: 30px">
 <div id='content'>
   <form class="uk-form-horizontal">
     <fieldset class="uk-fieldset">
@@ -37,15 +41,21 @@
       </div>
       <div class="js-upload" uk-form-custom>
         <input type="file" ref='imageUpload' v-on:change="imageHandle()">
-        <button class="uk-button uk-button-default" type="button" tabindex="-1">เพิ่มรูปภาพ</button>
-      </div>
-      <button class="uk-button uk-button-default" type="button" tabindex="-1" v-if="previewImage" v-on:click="clearImage">ล้าง</button>
+        <button class="uk-button uk-button-primary" type="button" tabindex="-1">เพิ่มรูปภาพ</button>
+      
+
+      <button class="uk-button uk-button-danger" type="button" tabindex="-1" v-if="previewImage" v-on:click="clearImage">ล้าง</button>
+
       <image class="imagePreviewer" v-bind:src="previewImage" v-if="imageFile!=null"> </image>
+
     </fieldset>
   </form>
-  <br>
-  <button class="uk-button uk-button-default" v-on:click="submitRequest()"  v-bind:disabled="checkSubmitable()">ส่งคำร้อง</button>
+
+  <button class="uk-button uk-button-primary" v-on:click="submitRequest()"  v-bind:disabled="checkSubmitable()">ส่งคำร้อง</button></div>
 </div>
+</div>
+</div>
+
 <style type="text/css">
   .imagePreviewer {
     width: 400px;
