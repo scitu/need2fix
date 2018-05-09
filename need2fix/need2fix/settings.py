@@ -124,6 +124,7 @@ SOCIAL_AUTH_PIPELINE = [
 ]
 
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'need2fix.drf_utils.exception_handler'

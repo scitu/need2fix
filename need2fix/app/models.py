@@ -31,6 +31,7 @@ class Task(models.Model):
     building = models.CharField(max_length=32)
     floor = models.CharField(max_length=32)
     room = models.CharField(max_length=32, null=True, blank=True)
+    etc = models.CharField(max_length=32, null=False, blank=False)
     create_date = models.DateTimeField(auto_now_add=True)
     done_date = models.DateTimeField(null=True, blank=True)
     status = models.CharField(max_length=1, blank=True, choices=STATUS_CHOICES)
@@ -59,7 +60,11 @@ class Task(models.Model):
         if self.building in building_info:
             if self.floor in building_info[self.building]:
                 if self.room in building_info[self.building][self.floor]:
-                    pass
+                    # if (self.room != "อื่นๆ"):      
+                         pass
+                    # else:
+                    #     raise ValidationError('invalid room available room are {}'\
+                    #     .format(list(building_info[self.building][self.floor])))
                 else:
                     raise ValidationError('invalid room available room are {}'\
                         .format(list(building_info[self.building][self.floor])))
