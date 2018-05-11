@@ -13,6 +13,7 @@
         <option value="2">ดำเนินการ</option>
         <option value="3">เสร็จสิ้น</option>
       </select>
+      <div><br></div>
       <label>ผู้รับผิดชอบ</label>
       <select select class="uk-select" v-model="formData.operator">
         <option v-for="mec in mechanicList" v-bind:value="mec.id"> [[mec.username]] [[mec.first_name]] </option>
@@ -24,7 +25,7 @@
 
   <!-- ReadOnly -->
   <div class="uk-margin" style="margin-left: 5%;" >
-    <label>หัวเรื่อง</label>
+    <label>หัวเรื่อง</label><br>
     <input class="uk-input" type="text" placeholder="หัวเรื่อง" v-model="formData.title" disabled>
   </div>
   <div class="uk-margin" style="margin-left: 5%;">
@@ -43,7 +44,9 @@
   <div class="uk-margin" style="margin-left: 5%;">
     <label> ห้อง: [[formData.room]] </label>
   </div>
-  <image class="imagePreviewer" v-bind:src="formData.image" v-if="formData.image!=null"> </image>
+  <div class="uk-margin" style="margin-left: 5%;">
+  <image class="imagePreviewer" v-bind:src="formData.image" v-if="formData.image!=null" style="width: 60%; height: 60%;"> </image>
+  </div>
 </div>
 {% endblock %}
 
