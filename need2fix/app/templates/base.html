@@ -15,39 +15,42 @@
 <script src="{% static 'js/uikit.min.js' %}"></script>
 <script src="{% static 'js/uikit-icons.min.js' %}"></script>
 <div id="app">
-  <nav class="uk-navbar-container" uk-navbar>
-    <div class="uk-navbar-left">
-      <ul class="uk-navbar-nav">
-        <li> <a href="{% url 'app:task-list' %}"> คำขอ </a> </li>
-        <li> <a href="{% url 'app:task-add' %}"> แจ้งซ่อม </a> </li>
-      </ul>
-    </div>
-    <div class="uk-navbar-right">
-      {% if request.user.is_authenticated %}
-        <article class="uk-comment">
-          <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
-            <div class="uk-width-auto">
-              <img class="uk-comment-avatar" src="{% static 'img/avatar.png' %}" alt="">
-            </div>
-            <div class="uk-width-auto">
-              <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#"> {{user.username}} </a></h4>
-              <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                  <!-- <form action="{% url 'social:begin' 'tu' %}">
-                      <input class="uk-button uk-button-primary" type="submit" value='TULogout' onclick="click();">
-                    </form> -->
-                <li><a href="/api-auth/logout/">Logout</a></li>
-              </ul>
-            </div>
-          </header>
-        </div>
-      
-      {% else%}
-        <form action="{% url 'social:begin' 'tu' %}">
-          <input class="uk-button uk-button-primary" type="submit" value='TU Login'>
-        </form>
-      {% endif %}
-    </div>
-  </nav>
+  <div class="uk-position-relative">
+    <nav class="uk-navbar-container" uk-navbar="dropbar: true" style="background:linear-gradient(to bottom right,darkred,rgb(80, 3, 3) )")>
+      <div class="uk-navbar-left">
+          <img src="../../../static/img/a.png" style="width:300px; margin: 10px;" />
+        <ul class="uk-navbar-nav">
+          <li> <a href="{% url 'app:task-list' %}" style="color:white"> คำขอ </a> </li>
+          <li> <a href="{% url 'app:task-add' %}" style="color:white"> แจ้งซ่อม </a> </li>
+        </ul>
+      </div>
+      <div class="uk-navbar-right"style="margin-right:5%;" >
+        {% if request.user.is_authenticated %}
+          <article class="uk-comment">
+            <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
+              <div class="uk-width-auto">
+                <img class="uk-comment-avatar" src="{% static 'img/avatar.png' %}" alt="">
+              </div>
+              <div class="uk-width-auto">
+                <h4 class="uk-comment-title uk-margin-remove" style="color:white"><a class="uk-link-reset" href="#" > {{user.username}} </a></h4>
+                <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                    <!-- <form action="{% url 'social:begin' 'tu' %}">
+                        <input class="uk-button uk-button-primary" type="submit" value='TULogout' onclick="click();">
+                      </form> -->
+                  <li><a href="/api-auth/logout/" style="color:white">Logout</a></li>
+                </ul>
+              </div>
+            </header>
+          </div>
+        
+        {% else%}
+          <form action="{% url 'social:begin' 'tu' %}">
+            <input class="uk-button uk-button-primary" type="submit" value='TU Login'>
+          </form>
+        {% endif %}
+      </div>
+    </nav>
+  </div>
 </div>
 {% block content %} {% endblock %}
 <script type="text/javascript">

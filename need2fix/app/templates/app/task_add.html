@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %} แจ้งซ่อม {% endblock %}
 {% block content %}
-<div id='content'>
+<div id='content' style="margin:50px;">
   <form class="uk-form-horizontal">
     <fieldset class="uk-fieldset">
       <legend class="uk-legend"> กรุณากรอกข้อมูลแจ้งซ่อม </legend>
@@ -35,16 +35,23 @@
           <option v-for="room in buildingInfo[formInput.building][formInput.floor]"> [[room]] </option>
         </select>
       </div>
-      <div class="js-upload" uk-form-custom>
-        <input type="file" ref='imageUpload' v-on:change="imageHandle()">
-        <button class="uk-button uk-button-default" type="button" tabindex="-1">เพิ่มรูปภาพ</button>
+      <div style="display: grid; grid-template-rows: 3 3;">
+        <div class="js-upload" uk-form-custom>
+          <image class="imagePreviewer" v-bind:src="previewImage" v-if="imageFile!=null"> </image>
+          <input type="file" ref='imageUpload' v-on:change="imageHandle()">
+          <div>
+            <button class="uk-button uk-button-default" type="button" tabindex="-1">เพิ่มรูปภาพ</button>
+            
+            <button class="uk-button uk-button-default" type="button" tabindex="-1" v-if="previewImage" v-on:click="clearImage">ล้าง</button>
+            </div>
+        </div>
+
+        
       </div>
-      <button class="uk-button uk-button-default" type="button" tabindex="-1" v-if="previewImage" v-on:click="clearImage">ล้าง</button>
-      <image class="imagePreviewer" v-bind:src="previewImage" v-if="imageFile!=null"> </image>
     </fieldset>
   </form>
   <br>
-  <button class="uk-button uk-button-default" v-on:click="submitRequest()"  v-bind:disabled="checkSubmitable()">ส่งคำร้อง</button>
+  <button class="uk-button uk-button-default" v-on:click="submitRequest()" v-bind:disabled="checkSubmitable()">ส่งคำร้อง</button>
 </div>
 <style type="text/css">
   .imagePreviewer {

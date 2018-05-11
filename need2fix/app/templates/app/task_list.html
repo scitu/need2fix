@@ -2,30 +2,30 @@
 {% block title %} งานซ่อม {% endblock %}
 {% block content %}
 
-<div id='content'>
+<div id='content' style="margin-top:5%;">
   <form>
-    <input type='radio' value='0' v-model='filterStatus'> ทั้งหมด
-    <input type='radio' value='1' v-model='filterStatus'> รับเรื่อง
-    <input type='radio' value='2' v-model='filterStatus'> ดำเนินการ
-    <input type='radio' value='3' v-model='filterStatus'> เสร็จสิ้น
+    <input type='radio' value='0' v-model='filterStatus' style="margin-left:3%"> ทั้งหมด
+    <input type='radio' value='1' v-model='filterStatus' style="margin-left:3%"> รับเรื่อง
+    <input type='radio' value='2' v-model='filterStatus' style="margin-left:3%"> ดำเนินการ
+    <input type='radio' value='3' v-model='filterStatus' style="margin-left:3%"> เสร็จสิ้น
   </form>
   {% if user.is_authenticated %}
   <form>
-    <input type='checkbox' value='true' v-model='onlyMe'>งานของฉัน
+    <input type='checkbox' value='true' v-model='onlyMe' style="margin-left:3%">งานของฉัน
   </form>
   {% endif %}
 
   <table class='uk-table uk-table-striped uk-table-hover  uk-table-small'>
-    <caption>งานแจ้งซ่อม</caption>
+    <caption style="margin-left:3%">งานแจ้งซ่อม</caption>
     <thead>
-      <tr>
-        <th> หัวเรื่อง </th>
-        <th> ฝ่าย </th>
-        <th> คำอธิบาย </th>
-        <th> ตึก </th>
-        <th> ชั้น </th>
-        <th> ห้อง </th>
-        <th> สถานะ </th>
+      <tr style="background-color:rgb(247, 238, 189);">
+        <th style="color:rgb(52, 52, 54); padding-left: 3%;" > หัวเรื่อง </th>
+        <th style="color:rgb(52, 52, 54);" > ฝ่าย </th>
+        <th style="color:rgb(52, 52, 54);"> คำอธิบาย </th>
+        <th style="color:rgb(52, 52, 54);"> ตึก </th>
+        <th style="color:rgb(52, 52, 54);"> ชั้น </th>
+        <th style="color:rgb(52, 52, 54);"> ห้อง </th>
+        <th style="color:rgb(52, 52, 54);"> สถานะ </th>
       </tr>
     </thead>
     <tbody v-for='task in taskList'>

@@ -4,7 +4,7 @@
 
 <div id='content'>
   <!-- Editable  -->
-  <form class="uk-form-horizontal">
+  <form class="uk-form-horizontal" style="margin-left: 5%;margin-top: 3%;">
     <fieldset class="uk-fieldset">
       <legend class="uk-legend"> คำร้องที่ {{pk}} </legend>
       <label>สถานะ</label>
@@ -19,27 +19,28 @@
       </select>
     </fieldset>
   </form>
-  <button class="uk-button uk-button-default" v-on:click="updateRequest()">ส่งคำร้อง</button>
+  <br>
+  <button class="uk-button uk-button-default" v-on:click="updateRequest()" style="margin-left: 5%;">ส่งคำร้อง</button>
 
   <!-- ReadOnly -->
-  <div class="uk-margin">
+  <div class="uk-margin" style="margin-left: 5%;" >
     <label>หัวเรื่อง</label>
     <input class="uk-input" type="text" placeholder="หัวเรื่อง" v-model="formData.title" disabled>
   </div>
-  <div class="uk-margin">
+  <div class="uk-margin" style="margin-left: 5%;">
     <label> ถึง: [[divisionName]] </label>
   </div>
   <div class="uk-margin">
-    <label>คำอธิบาย</label>
-    <textarea class="uk-textarea" rows="5" placeholder="คำธิบาย" v-model="formData.description" disabled></textarea>
+    <label style="margin-left: 5%;">คำอธิบาย</label >
+    <textarea class="uk-textarea" rows="5" placeholder="คำธิบาย" v-model="formData.description" disabled style="margin-left: 5%;"></textarea>
   </div>
-  <div class="uk-margin">
+  <div class="uk-margin" style="margin-left: 5%;">
     <label> อาคาร: [[formData.building]] </label>
   </div>
-  <div class="uk-margin">
+  <div class="uk-margin" style="margin-left: 5%;">
     <label> ชั้น: [[formData.floor]] </label>
   </div>
-  <div class="uk-margin">
+  <div class="uk-margin" style="margin-left: 5%;">
     <label> ห้อง: [[formData.room]] </label>
   </div>
   <image class="imagePreviewer" v-bind:src="formData.image" v-if="formData.image!=null"> </image>

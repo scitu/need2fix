@@ -31,7 +31,7 @@ class Task(models.Model):
     building = models.CharField(max_length=32)
     floor = models.CharField(max_length=32)
     room = models.CharField(max_length=32, null=True, blank=True)
-    etc = models.CharField(max_length=32, null=False, blank=False)
+    etc = models.CharField(max_length=32, null=True, blank=False)
     create_date = models.DateTimeField(auto_now_add=True)
     done_date = models.DateTimeField(null=True, blank=True)
     status = models.CharField(max_length=1, blank=True, choices=STATUS_CHOICES)
