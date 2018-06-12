@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %} งานซ่อม {% endblock %}
 {% block content %}
-  <div><p>jghgj</p>
+  <div style="margin:50px;">
   <div id='content'>
     <!-- Editable  -->
     <form class="uk-form-horizontal" >
@@ -19,10 +19,10 @@
         </select>
       </fieldset>
     </form>
-    <button class="uk-button uk-button-default" v-on:click="updateRequest()">ส่งคำร้อง</button>
+    <button class="uk-button uk-button-default" style="margin-top:10px " v-on:click="updateRequest()">ส่งคำร้อง</button>
 
     <!-- ReadOnly -->
-    <div class="uk-margin"style="margin:10%"  >
+    <div class="uk-margin"  >
       <label >หัวเรื่อง</label>
       <input class="uk-input" type="text" placeholder="หัวเรื่อง" v-model="formData.title" disabled>
     </div>

@@ -18,7 +18,7 @@
   <div class="uk-position-relative">
     <nav class="uk-navbar-container" uk-navbar="dropbar: true" style="background:linear-gradient(to bottom right,darkred,rgb(80, 3, 3) )">
         <div class="uk-navbar-left">
-          <img src="../../static/img/a.png" style="width:300px; margin: 10px;" />
+          <img src="../../../static/img/a.png" style="width:300px; margin: 10px;" />
         </div>
         <div class="uk-navbar-left">
             <ul class="uk-navbar-nav">
@@ -38,8 +38,8 @@
                 <div class="uk-width-auto">
                   <h4 class="uk-comment-title uk-margin-remove" style="color:white"><a class="uk-link-reset" href="#" > {{user.username}} </a></h4>
                   <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                    <li><a href="#" style="color:white">setting</a></li>
-                    <li><a href="#" style="color:white">logout</a></li>
+                    <!-- <li><a href="#" style="color:white">setting</a></li> -->
+                    <li><a href="/api-auth/logout/" style="color:white">logout</a></li>
                   </ul>
                 </div>
               </header>
@@ -63,6 +63,7 @@
 var app = new Vue({
   el: '#app',
   delimiters: ['[[', ']]'],
+  log:false,
   data: function () {
   return {}
   }
