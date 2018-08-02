@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block title %} งานซ่อม {% endblock %}
+{% block content %}
+<div style="margin:50px;">
+<div id='content' style="margin-top:5%">
+  <form  style="text-align:center">
+    <input type='radio' value='0' v-model='filterStatus' > ทั้งหมด 
+    <input type='radio' value='1' v-model='filterStatus'style="margin-left:3%"> รับเรื่อง
+    <input type='radio' value='2' v-model='filterStatus'style="margin-left:3%"> ดำเนินการ
+    <input type='radio' value='3' v-model='filterStatus'style="margin-left:3%"> เสร็จสิ้น
+  </form>
+  {% if user.is_authenticated %}
+  <form>
+    <input type='checkbox' value='true' v-model='onlyMe' style="margin-left:5%"> งานของฉัน
+  </form>
+  {% endif %}
+  <table class='uk-table uk-table-striped uk-table-hover uk-table-small'>
+    <caption style="margin-left:1%; font-size: 16px;">งานแจ้งซ่อม</caption>
+    <thead>
+      <tr style="background-color:#c00832;margin-left:3%;" >
+        <th style="color:white; font-size: 16px;"> หัวเรื่อง </th>
+        <th style="color:white; font-size: 16px;"> ฝ่าย </th>
+        <th style="color:white; font-size: 16px;"> คำอธิบาย </th>
+        <th style="color:white; font-size: 16px;"> ตึก </th>
+        <th style="color:white; font-size: 16px;"> ชั้น </th>
+        <th style="color:white; font-size: 16px;"> ห้อง </th>
+        <th style="color:white; font-size: 16px;"> สถานะ </th>
+      </tr>
+    </thead>
+    <tbody v-for='task in taskList'>
+      <tr v-if='(onlyMe==false & (filterStatus==0 | task.status==filterStatus)) |
+                ({{user.id}}!="None" & onlyMe==true & 
+                  (filterStatus==0 | task.status==filterStatus) & 
+                  (task.requester=={{user.id}} | task.operator=={{user.id}})
+                )'>
+        <td> <a v-bind:href="'/task/detail/'+task.id+'/'">[[task.title]]</a></td>
+        <td>[[divisionName(task.division)]]</td>
+        <td>[[task.description]]</td>
+        <td>[[task.building]]</td>
+        <td>[[task.floor]]</td>
+        <td>[[task.room]]</td>
+        <td>[[task.status==1? 'รับเรื่อง':task.status==2?'ดำเนินการ':'เสร็จสิ้น']]</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type='text/javascript'>
+var content = new Vue({
+  el: '#content',
+  delimiters: ['[[', ']]'],
+  data: function () {
+    return {
+      'message': 'Hello',
+      'taskList': null,
+      'filterStatus': 1,
+      'onlyMe': false,
+      'divisionList': []
+    }
+  },
+
+  methods: {
+    divisionName: function (division) {
+      return division? this.divisionList[division]: 'ไม่ระบุ'
+    }
+  },
+
+  mounted: function () {
+    axios.get('/api/task/')
+      .then((response) => {
+        this.taskList = response.data
+      })
+      .catch((error) => {
+        alert(error)
+      })
+    axios.get('/api/division-list/')
+      .then((response) => {
+        this.divisionList = response.data
+      })
+      .catch((error) => {
+        alert(error)
+      })   
+  }
+})
+</script>
+{% endblock %}

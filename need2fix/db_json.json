@@ -1,0 +1,143 @@
+[
+{
+    "model": "auth.group",
+    "fields": {
+        "name": "mechanic",
+        "permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "!MQI8u7XrMVJtswXLkYSgCpywssEiiinJLyO2FjF7",
+        "last_login": "2018-06-14T08:21:53.630Z",
+        "is_superuser": false,
+        "username": "5809610313",
+        "first_name": "WARAROM",
+        "last_name": "PHOTHIPRAPHAN",
+        "email": "WARAROM.PHO@dome.tu.ac.th",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2018-06-04T17:04:45.785Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "fields": {
+        "password": "pbkdf2_sha256$100000$t3JIxZabnMd2$STxhOA0CxC0wgD92VIeO7p/USOk4okDDjI0kCE9hBuc=",
+        "last_login": "2018-06-12T10:17:00.926Z",
+        "is_superuser": true,
+        "username": "wararom",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2018-06-11T17:17:47.161Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "social_django.usersocialauth",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "provider": "tu",
+        "uid": "5809610313",
+        "extra_data": "{\"auth_time\": 1528964513, \"expires_in\": 600, \"refresh_token\": \"v2js1i3E0QMEH3ww8WTPSWPrqcSXCr\", \"scope\": \"read\", \"access_token\": \"CuhJpAnlYJI5TVndKpJsOs6az329uC\", \"token_type\": \"Bearer\"}"
+    }
+},
+{
+    "model": "app.task",
+    "pk": 1,
+    "fields": {
+        "title": "ttt",
+        "description": "test",
+        "building": "LC 5",
+        "floor": "1",
+        "room": "101",
+        "create_date": "2018-06-04T17:05:26.230Z",
+        "done_date": null,
+        "status": "1",
+        "division": "2",
+        "image": "5809610313/1.jpg",
+        "requester": 1,
+        "operator": null
+    }
+},
+{
+    "model": "app.task",
+    "pk": 2,
+    "fields": {
+        "title": "wew",
+        "description": "ererw",
+        "building": "LC 4",
+        "floor": "3",
+        "room": "312/3",
+        "create_date": "2018-06-11T17:05:50.958Z",
+        "done_date": null,
+        "status": "1",
+        "division": "1",
+        "image": "5809610313/dsp-85607_1280.jpg",
+        "requester": 1,
+        "operator": null
+    }
+},
+{
+    "model": "app.task",
+    "pk": 3,
+    "fields": {
+        "title": "ss",
+        "description": "fvsgd",
+        "building": "LC 3",
+        "floor": "2",
+        "room": "207/1",
+        "create_date": "2018-06-12T10:27:45.062Z",
+        "done_date": null,
+        "status": "1",
+        "division": "1",
+        "image": "5809610313/9c23aead8268217acb61f57ae9a07cdc.jpg",
+        "requester": 1,
+        "operator": null
+    }
+},
+{
+    "model": "app.task",
+    "pk": 4,
+    "fields": {
+        "title": "ee",
+        "description": "we",
+        "building": "LC 5",
+        "floor": "3",
+        "room": "R301",
+        "create_date": "2018-06-12T15:32:49.788Z",
+        "done_date": null,
+        "status": "1",
+        "division": "1",
+        "image": "5809610313/9c23aead8268217acb61f57ae9a07cdc_XwBs4Ab.jpg",
+        "requester": 1,
+        "operator": null
+    }
+},
+{
+    "model": "app.task",
+    "pk": 5,
+    "fields": {
+        "title": "ttrr",
+        "description": "rete",
+        "building": "LC 2",
+        "floor": "2",
+        "room": "111",
+        "create_date": "2018-06-12T16:06:35.064Z",
+        "done_date": null,
+        "status": "1",
+        "division": "1",
+        "image": "5809610313/lovely-close-up-wallpaper-1.jpg",
+        "requester": 1,
+        "operator": null
+    }
+}
+]

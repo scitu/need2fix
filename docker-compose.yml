@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+  db_needtofix:
+    container_name: postgres_needtofix
+    image: postgres
+    # build: ./postgresql
+    restart: always
+
+  web_needtofix:
+    container_name: web_needtofix
+    build: ./need2fix
+    command: sh /code/run.sh
+    volumes:
+      - ./need2fix:/code
+      - /var/www/static/:/var/www/static/
+      - /var/www/media/:/var/www/media/
+    depends_on:
+      - db_needtofix
+
+  nginx_needtofix:
+      container_name: nginx_needtofix
+      image: nginx:latest
+      ports:
+        - "80:80"
+      volumes:
+        - ./nginx/:/etc/nginx/conf.d/
+        - /var/www/static/:/var/www/static/
+        - /var/www/media/:/var/www/media/
+      depends_on:
+        - web_needtofix

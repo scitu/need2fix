@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% block title %} แจ้งซ่อม {% endblock %}
+{% block content %}
+<div style="margin:50px;">
+<div id='content' style="margin-top:5%">
+  <form class="uk-form-horizontal">
+    <fieldset class="uk-fieldset">
+      <legend class="uk-legend"> กรุณากรอกข้อมูลแจ้งซ่อม </legend>
+      <div class="uk-margin">
+        <input class="uk-input" type="text" placeholder="หัวเรื่อง" v-model="formInput.title">
+      </div>
+      <div class="uk-margin">
+        <label> ถึง </label>
+        <select class="uk-select" v-model="formInput.division">
+          <option v-for="(description, division) in divisionList" v-bind:value="division"> [[description]] </option>
+        </select>
+      </div>
+      <div class="uk-margin">
+        <textarea class="uk-textarea" rows="5" placeholder="คำธิบาย" v-model="formInput.description"></textarea>
+      </div>
+      <div class="uk-margin">
+        <label> อาคาร </label>
+        <select class="uk-select" v-model="formInput.building">
+          <option v-for="(info, building) in buildingInfo"> [[building]] </option>
+        </select>
+      </div>
+      <div class="uk-margin" v-if="formInput.building">
+        <label> ชั้น </label>
+        <select class="uk-select" v-model="formInput.floor">
+          <option v-for="(info, floor) in buildingInfo[formInput.building]"> [[floor]] </option>
+        </select>
+      </div>
+      <div class="uk-margin" v-if="formInput.floor">
+        <label> ห้อง </label>
+        <div class="uk-margin">
+          <input class="uk-input" type="text" placeholder="ห้อง" v-model="formInput.room" required>
+        </div>
+        <!-- <select class="uk-select" v-model="formInput.room">
+          <option v-for="room in buildingInfo[formInput.building][formInput.floor]"> [[room]] </option>
+        </select> -->
+      </div>
+      <div class="js-upload" uk-form-custom>
+        <input type="file" ref='imageUpload' v-on:change="imageHandle()">
+        <button class="uk-button uk-button-default" type="button" v-if="imageFile==null" tabindex="-1">เพิ่มรูปภาพ</button>
+        <button class="uk-button uk-button-default" type="button" v-if="imageFile!=null" tabindex="-1">เปลี่ยนรูปภาพ</button>
+
+      </div>
+      <button class="uk-button uk-button-default" type="button" tabindex="-1" v-if="previewImage" v-on:click="clearImage">ล้าง</button>
+      <image class="imagePreviewer" v-bind:src="previewImage" v-if="imageFile!=null"> </image>
+    </fieldset>
+  </form>
+  <br>
+  <button class="uk-button uk-button-default" v-on:click="submitRequest()"  v-bind:disabled="checkSubmitable() ">ส่งคำร้อง</button>
+</div>
+</div>
+
+<style type="text/css">
+  .imagePreviewer {
+    width: 400px;
+    background-color: white;
+    border: 1px solid #DDD;
+    padding: 5px;
+  }
+</style>
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+new Vue({
+  el: '#content',
+  delimiters: ['[[', ']]'],
+
+  mounted () {
+    axios.get('/api/building-info')
+      .then((res) => {
+        this.buildingInfo = res.data
+      })
+    axios.get('/api/division-list')
+      .then((res) => {
+        this.divisionList = res.data
+        this.divisionList[null] = "ไม่ระบุ"
+      })
+  },
+
+  data: function () {
+    return {
+      'buildingInfo': {},
+      'divisionList': {},
+      'formInput': {},
+      'imageFile': null,
+      'previewImage': null
+    }
+  },
+
+  methods: {
+    clearImage: function () {
+      this.previewImage = null
+      this.imageFile = null
+    },
+
+    imageHandle: function() {
+      this.imageFile = this.$refs.imageUpload.files[0]
+      var reader = new FileReader();
+        reader.onload = (e) => {
+          this.previewImage = e.target.result;
+        }
+        reader.readAsDataURL(this.imageFile);
+    },
+
+    checkSubmitable: function() {
+      let checklist = ['title', 'building', 'floor', 'room']
+      try{
+        checklist.forEach( (d) => {
+          if (this.formInput[d]== null) throw BreakException
+        })
+        return false
+      } catch (e) {
+        return true
+      }
+    },
+
+    clearForm: function () {
+      this.formInput.title = ''
+      this.formInput.description = ''
+      this.formInput.building = ''
+      this.formInput.floor = ''
+      this.formInput.room = ''
+      this.clearImage()
+    },
+
+    submitRequest: function () {
+
+      let formData = new FormData()
+      for (let key in this.formInput ) {
+        if (this.formInput[key] != "null") {
+          formData.set(key, this.formInput[key])
+        }
+      }
+      if (this.imageFile) {
+        formData.set('image', this.imageFile)
+      } 
+
+      axios.post('/api/task/', formData)
+        .then((res) => {
+          alert('ส่งคำร้องเรียบร้อย')
+          window.location = "/task/list";
+          
+          
+        })
+        .catch((error) => {
+          s = 'เกิดข้อผิดพลาด'
+          for(let k in error.response.data) {
+            s += '\n' + k + ': ' + error.response.data[k]
+          }
+          alert(s)
+
+        })
+    }
+  }
+})
+</script>
+{% endblock %}
