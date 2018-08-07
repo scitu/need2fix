@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '*ydm@ozmr*x12395z%&-c1-g!(onmw!wbhgt%52k-ndmeew%ta'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['web2','localhost']
 
@@ -79,13 +79,13 @@ WSGI_APPLICATION = 'need2fix.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        # 'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': 'postgres',
-        # 'USER': 'postgres',
-        # 'HOST': 'db_needtofix',
-        # 'PORT': 5432,
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'HOST': 'db_needtofix',
+        'PORT': 5432,
     }
 }
 
@@ -113,8 +113,8 @@ AUTHENTICATION_BACKENDS = (
     'tuauth.backend.TUOAuth2',
 )
 
-SOCIAL_AUTH_TU_KEY = 'XurMGL8cZlW2tKhqMPEOkhnIIlOM3whXNgfrWJDH'
-SOCIAL_AUTH_TU_SECRET = 'WiFcLO2nGen6IW0cDMQxUQ5SHumsb6PiP2reCDuc09nvmVpZ5qrLT2M7NJlqVsSUTTQx2zZHNPSRYSQnkNIoyhO5YdzSQ6e9gKUYNySeKfOKFiJUZ0KSzScPiIIFHfop'
+SOCIAL_AUTH_TU_KEY = 'cgH1Wzr4n7XjpyEicxAKerBAlmqvJRuIG0gIMSNj'
+SOCIAL_AUTH_TU_SECRET = 'jJBWYjm3VvvGhjtLmXackDsyhQtR0ZAvOiGxSjk5RYXyPL9HkS6OceOT6lmekvDv1FpKAurSqheD0zbEojDwaAgYgr9PBR06LhbLk8IadkzqemIQ11UBzuCD1JbpgoCy'
 
 SOCIAL_AUTH_PIPELINE = [ 
     'social_core.pipeline.social_auth.social_details',
@@ -153,10 +153,11 @@ LOGIN_URL = '/oauth/login/tu/'
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/var/www/need/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
+    
 ]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = 'media/'
+MEDIA_ROOT = '/var/www/need/media/'
