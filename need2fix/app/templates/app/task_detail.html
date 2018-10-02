@@ -4,7 +4,7 @@
   <div style="margin:50px;">
   <div id='content'>
     <!-- Editable  -->
-    <form class="uk-form-horizontal" >
+    <form class="uk-form-horizontal">
       <fieldset class="uk-fieldset">
         <legend class="uk-legend"> คำร้องที่ {{pk}} </legend>
         {%if user.is_staff%}
@@ -18,6 +18,14 @@
             <select select class="uk-select" v-model="formData.operator" >
               <option v-for="mec in mechanicList" v-bind:value="mec.id" > [[mec.first_name]] [[mec.last_name]] </option>
             </select>
+            <!-- <br><br>
+            <div class="js-upload" uk-form-custom>
+              <input type="file" ref='imageUpload' v-on:change="imageHandle()">
+              <button class="uk-button uk-button-default" type="button" v-if="imageFile==null" tabindex="-1">เพิ่มรูปภาพ</button>
+              <button class="uk-button uk-button-default" type="button" v-if="imageFile!=null" tabindex="-1">เปลี่ยนรูปภาพ</button>
+            </div>
+            <button class="uk-button uk-button-default" type="button" tabindex="-1" v-if="previewImage" v-on:click="clearImage">ล้าง</button>
+            <image class="imagePreviewer" v-bind:src="previewImage" v-if="imageFile!=null"> </image> -->
         {%else%}
             <label>สถานะ</label>
             <select select class="uk-select" v-model="formData.status" disabled>
@@ -59,10 +67,24 @@
     <div class="uk-margin">
       <label> ห้อง: [[formData.room]] </label>
     </div>
+    <div class="uk-margin">
+      <label> ติดต่อกลับ: [[formData.contact]] </label>
+    </div>
+    <div class="uk-margin">
+      <label> หมายเลขโทรศัพท์: [[formData.phone_contact]] </label>
+    </div>
     <image class="imagePreviewer" v-bind:src="formData.image" v-if="formData.image!=null"> </image>
+    <image class="imagePreviewer" v-bind:src="formData.after_image" v-if="formData.after_image!=null"> </image>
   </div>
   </div>
-
+  <style type="text/css">
+    .imagePreviewer {
+      width: 400px;
+      background-color: white;
+      border: 1px solid #DDD;
+      padding: 5px;
+    }
+  </style>
 {% endblock %}
 
 {% block script %}
@@ -70,12 +92,14 @@
 var content = new Vue({
   el: '#content',
   delimiters: ['[[', ']]'],
+
   data: function () {
     return {
       'formData': {},
       'divisionList': {},
       'mechanicList': [],
-      // 'imageFile': null
+      'imageFile': null,
+      'previewImage': null
     }
   },
   
@@ -111,21 +135,36 @@ var content = new Vue({
   }, 
 
   methods: {
+    clearImage: function () {
+      this.previewImage = null
+      this.imageFile = null
+    },
+
+    imageHandle: function() {
+      this.imageFile = this.$refs.imageUpload.files[0]
+      var reader = new FileReader();
+        reader.onload = (e) => {
+          this.previewImage = e.target.result;
+        }
+        reader.readAsDataURL(this.imageFile);
+    },
+
     updateRequest: function () {
       if (confirm("ยืนยันการแก้ไข")) {
         
         console.log(this.formData)
-        
         axios.patch('/api/task/'+'{{pk}}/', {
-                'status': this.formData.status,
-                'operator': this.formData.operator,
-            })
+              'status': this.formData.status,
+              'operator': this.formData.operator,
+              // 'after_image':this.imageFile
+          })
         
           .then((response) => {
             console.log(response.data)
             window.location ='/task/list';
           })
           .catch((error) => {
+            console.log('ล้มเหลว1')
             s = 'เกิดข้อผิดพลาด'
             for(let k in error.response.data) {
               s += '\n' + k + ': ' + error.response.data[k]

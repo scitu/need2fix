@@ -10,8 +10,12 @@
   <link rel="stylesheet" href="{% static 'css/custom.css' %}">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit:300,400,500,700&amp;subset=thai">
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/css/froala_editor.min.css' rel='stylesheet' type='text/css' />
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/css/froala_style.min.css' rel='stylesheet' type='text/css' />
+  <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/js/froala_editor.min.js'></script>
  
 </head>
+
 <body>
 <script src="{% static 'js/vue.js' %}"></script>
 <script src="{% static 'js/axios.min.js' %}"></script>
@@ -30,7 +34,7 @@
           <nav class="uk-navbar-container" uk-navbar="mode: click">
             <div class="uk-navbar-left">
               <!-- <img src="static/main-logo.svg" class="main-logo"> -->
-              <a href="/"><img src="{% static 'img/main-logo.svg' %}" class="main-logo"></a> 
+              <a href="/"><img src="{% static 'img/scitu_logo.svg' %}" class="main-logo"></a> 
             
             </div>
             <div class="uk-navbar-right" style="margin-right:5%;">
@@ -83,113 +87,51 @@
       </div>
     
 {% block content %} {% endblock %}
+
+
 <div class="page-footer">
-    <div class="uk-flex footer-flex">
+  <div class="uk-flex footer-flex">
       <div class="about">
-        <div class="sub-logo">
-          <!-- <img src="static/main-logo.svg" alt=""> -->
-          <img src="{% static 'img/main-logo.svg' %}" class="main-logo">
-        </div>
-        <div class="contact">
-          <h6 class="contact-text">ติดต่อธรรมศาสตร์</h6>
-          <ul class="contact-list">
-            <li>
-              <a href="https://www.facebook.com/thammasat.uni"><i class="fab fa-facebook-f"></i></a>
-            </li>
-            <li>
-              <a href="https://www.youtube.com/user/PRTHAMMASAT"><i class="fab fa-youtube"></i></a>
-            </li>
-            <li>
-              <a href="https://twitter.com/thammasat_uni"><i class="fab fa-twitter"></i></a>
-            </li>
-            <li>
-              <a href="https://www.instagram.com/thammasat_official"><i class="fab fa-instagram"></i></a>
-            </li>
-          </ul>
-        </div>
-        <div class="address">
-          <ul class="address-list">
-            <li>
-              <div uk-grid>
-                <p class="uk-width-1-2 title uk-first-column">ท่าพระจันทร์</p>
-                <i uk-toggle="target: #thaprachan;cls: show; animation: uk-animation-slide-bottom-small" class="fas fa-plus uk-width-1-2 uk-text-right"></i>
-              </div>
-              <div id="thaprachan" class="toggle-usage">
-                <p>2 ถนนพระจันทร์ แขวงพระบรมมหาราชวัง, เขตพระนคร, กรุงเทพฯ 10200, ประเทศไทย.</p>
-                <p>Tel. +66 (0) 2613 3333</p>
-              </div>
-            </li>
-            <li>
-              <div uk-grid>
-                <p class="uk-width-1-2 title uk-first-column">ศูนย์รังสิต</p>
-                <i uk-toggle="target: #rangsit;cls: show; animation: uk-animation-slide-bottom-small" class="fas fa-plus uk-width-1-2 uk-text-right"></i>
-              </div>
-              <div id="rangsit" class="toggle-usage">
-                <p>99 หมู่ 18, ถ.พหลโยธิน, คลองหลวง, รังสิต, ปทุมธานี, 12121 ประเทศไทย.</p>
-                <p>Tel. +66 (0) 564 4440-79</p>
-              </div>
-            </li>
-            <li>
-              <div uk-grid>
-                <p class="uk-width-1-2 title uk-first-column">ศูนย์พัทยา</p>
-                <i uk-toggle="target: #pattaya;cls: show; animation: uk-animation-slide-bottom-small" class="fas fa-plus uk-width-1-2 uk-text-right"></i>
-              </div>
-              <div id="pattaya" class="toggle-usage">
-                <p>อาคารบรรยายรวม เลขที่ 39/4 หมู่ 5 ต.โปร่ง อ.บางละมุง จ.ชลบุรี 20150</p>
-                <p>Tel. +66 (0) 3825 9050-55</p>
-              </div>
-            </li>
-            <li>
-              <div uk-grid>
-                <p class="uk-width-1-2 title uk-first-column">ศูนย์ลำปาง</p>
-                <i uk-toggle="target: #lampang;cls: show; animation: uk-animation-slide-bottom-small" class="fas fa-plus uk-width-1-2 uk-text-right"></i>
-              </div>
-              <div id="lampang" class="toggle-usage">
-                <p>248 หมู่ 2 ถ.ลำปาง-เชียงใหม่ ต.ปงยางคก อ.ห้างฉัตร จ.ลำปาง 52190</p>
-                <p>Tel. +66 (0) 5423-7999 โทรสาร +66 (0) 5423-7999 ต่อ 5119</p>
-              </div>
-            </li>
-          </ul>
-        </div>
+          <div class="contact">
+              <h6 class="contact-text">ติดต่อธรรมศาสตร์</h6>
+              <ul class="contact-list uk-margin-remove-bottom uk-padding-remove-bottom">
+                <li>
+                  <a href="https://www.facebook.com/thammasat.uni"><i class="fab fa-facebook-f"></i></a>
+                </li>
+                <li>
+                  <a href="https://www.youtube.com/user/PRTHAMMASAT"><i class="fab fa-youtube"></i></a>
+                </li>
+                <li>
+                  <a href="https://twitter.com/thammasat_uni"><i class="fab fa-twitter"></i></a>
+                </li>
+                <li>
+                  <a href="https://www.instagram.com/thammasat_official"><i class="fab fa-instagram"></i></a>
+                </li>
+              </ul>
+              
+          </div>
       </div>
-      <div class="faculty-info">
-        <div>
-          <p class="uk-text-lead">ติดต่อสอบถาม</p>
-          <!-- <p>งานบัณฑิตศึกษา ชั้น3 อาหารบรรยายรวม 5</p> -->
-          <p>คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยธรรมศาสตร์</p>
-        </div>
-        <div>
-          <p class="uk-text-lead">ที่อยู่</p>
-          <p>99 ม.18 ต.คลองหนึ่ง อ.คลองหลวง จ.ปทุมธานี 12121</p>
-        </div>
-        <div>
-          <p class="uk-text-lead">โทรศัพท์</p>
-          <p>02-564490 ต่อ 2094</p>
-        </div>
-        <div>
-          <p class="uk-text-lead">อีเมลล์</p>
-          <p>sci@sci.tu.ac.th</p>
-        </div>
+      <div>
+          <p class="uk-text-lead uk-margin-remove-bottom">ติดต่อสอบถาม</p>
+          <p class="uk-padding-remove-top uk-margin-remove-top">งานประชาสัมพันธ์ ชั้น3 อาคารบรรยายรวม 5 คณะวิทยาศาสตร์และเทคโนโลยี มหาวิทยาลัยธรรมศาสตร์</p>
       </div>
-    </div>
   </div>
 </div>
+
 </div>
-
-
-
+</div>
 
 {% block script %}
 <script type="text/javascript">
 var app = new Vue({
-  el: '#app',
-  delimiters: ['[[', ']]'],
-  log:false,
-  data: function () {
-  return {}
-  }
+el: '#app',
+delimiters: ['[[', ']]'],
+log:false,
+data: function () {
+return {}
+}
 })
 </script>
- {% endblock %}
+{% endblock %}
 </body>
 </html>

@@ -8,6 +8,18 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from app import building_info, division_list
+from simple_history.models import HistoricalRecords
+
+class Poll(models.Model):
+    question = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
+    history = HistoricalRecords()
+
+class Choice(models.Model):
+    poll = models.ForeignKey(Poll, on_delete=models.PROTECT)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+    history = HistoricalRecords()
 
 def get_upload_path(instance, filename):
     return os.path.join(instance.requester.username, filename)
@@ -30,12 +42,15 @@ class Task(models.Model):
     description = models.CharField(max_length=512, null=True, blank=True)
     building = models.CharField(max_length=32)
     floor = models.CharField(max_length=32)
-    room = models.CharField(max_length=32, null=True, blank=True)
+    room = models.CharField(max_length=32)
+    contact = models.EmailField(max_length=32)
+    phone_contact = models.CharField(max_length=32, null=True, blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
     done_date = models.DateTimeField(null=True, blank=True)
     status = models.CharField(max_length=1, blank=True, choices=STATUS_CHOICES)
     division = models.CharField(max_length=2, blank=True, choices=DIVISION_CHOICES, null=True)
     image = models.ImageField(upload_to=get_upload_path, null=True, blank=True)
+    after_image = models.ImageField(upload_to=get_upload_path, null=True, blank=True)
     requester = models.ForeignKey(usermodel, blank=True, on_delete=models.PROTECT, related_name='request_set')
     operator = models.ForeignKey(usermodel, null=True, blank=True, on_delete=models.SET_NULL, related_name='task_set')
 
