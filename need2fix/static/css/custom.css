@@ -213,6 +213,10 @@ table .uk-table-hover{
     background-color: #f2f2f2;
   }
 
+  .navbar .uk-navbar-container {
+    margin-top: 20px;
+  }
+
 }
 /* 1280px section */
 @media screen and (min-width: 1080px) {
@@ -228,6 +232,10 @@ table .uk-table-hover{
     margin-right: 32px;
     border-right: solid 1px #c8c6c6;
   }
+  .navbar .uk-navbar-container {
+    margin-top: 20px;
+  }
+  
 
 }
 
@@ -238,7 +246,10 @@ table .uk-table-hover{
     flex-direction: column;
   }
 
-  
+  .navbar .uk-navbar-container {
+    margin-top: 20px;
+  }
+
 }
 
 
