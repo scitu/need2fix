@@ -39,6 +39,18 @@
           <option v-for="room in buildingInfo[formInput.building][formInput.floor]"> [[room]] </option>
         </select> -->
       </div>
+      <div class="uk-margin">
+        <label> ติดต่อกลับ </label>
+        <div class="uk-margin">
+          <input class="uk-input" type="email" placeholder="e-mail" v-model="formInput.contact" required>
+        </div>
+      </div>
+      <div class="uk-margin" v-if="formInput.contact">
+        <label> หมายเลขโทรศัพท์ </label>
+        <div class="uk-margin">
+          <input class="uk-input" type="text" placeholder="กรณีที่ต้องการให้โทรติดต่อกลับไปเมื่อซ่อมสำเร็จแล้ว" v-model="formInput.phone_contact">
+        </div>
+      </div>
       <div class="js-upload" uk-form-custom>
         <input type="file" ref='imageUpload' v-on:change="imageHandle()">
         <button class="uk-button uk-button-default" type="button" v-if="imageFile==null" tabindex="-1">เพิ่มรูปภาพ</button>
@@ -109,7 +121,7 @@ new Vue({
     },
 
     checkSubmitable: function() {
-      let checklist = ['title', 'building', 'floor', 'room']
+      let checklist = ['title', 'building', 'floor', 'room', 'contact']
       try{
         checklist.forEach( (d) => {
           if (this.formInput[d]== null) throw BreakException
@@ -126,6 +138,7 @@ new Vue({
       this.formInput.building = ''
       this.formInput.floor = ''
       this.formInput.room = ''
+      this.formInput.contact = ''
       this.clearImage()
     },
 
@@ -145,8 +158,6 @@ new Vue({
         .then((res) => {
           alert('ส่งคำร้องเรียบร้อย')
           window.location = "/task/list";
-          
-          
         })
         .catch((error) => {
           s = 'เกิดข้อผิดพลาด'
