@@ -1,7 +1,7 @@
 certifi==2018.1.18
 chardet==3.0.4
 defusedxml==0.5.0
-Django==2.0.3
+Django==2.2.24
 django-filter==1.1.0
 git+https://github.com/scitu/django-tuauth.git
 djangorestframework==3.7.7
